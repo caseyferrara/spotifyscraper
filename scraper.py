@@ -19,3 +19,20 @@ genre_seeds = sp.recommendation_genre_seeds()
 
 # Data structure to hold track information
 tracks_data = []
+
+# Fetch tracks for each genre and store their details
+for genre in genre_seeds['genres']:
+    recommendations = sp.recommendations(seed_genres=[genre], limit=100) # Limit of tracks per genre
+    for track in recommendations['tracks']:
+        track_info = {
+            'genre': genre,
+            'track_name': track['name'],
+            'artist_name': track['artists'][0]['name'],
+            'album_name': track['album']['name'],
+            'release_date': track['album']['release_date'],
+            'track_duration_ms': track['duration_ms'],
+            'popularity': track['popularity'],
+            'explicit': track['explicit'],
+            'spotify_uri': track['uri'],
+        }
+        tracks_data.append(track_info)
