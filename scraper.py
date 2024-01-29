@@ -36,3 +36,17 @@ for genre in genre_seeds['genres']:
             'spotify_uri': track['uri'],
         }
         tracks_data.append(track_info)
+
+# Writing to a CSV file
+csv_file = "spotify_tracks.csv"
+csv_columns = ['genre', 'track_name', 'artist_name', 'album_name', 'release_date', 
+               'track_duration_ms', 'popularity', 'explicit', 'spotify_uri']
+
+try:
+    with open(csv_file, 'w', newline='', encoding='utf-8') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
+        writer.writeheader()
+        for data in tracks_data:
+            writer.writerow(data)
+except IOError:
+    print("I/O error")
